@@ -10,7 +10,7 @@ flowlines <- TRUE
 test_sensitivity <-FALSE
 test_loo <- TRUE
 infile = "~/Documents/Projects/OSU/WWSRiskMapping/datasets/CompositeIndexInput/FlowlinesStreamCatVars_landslides_IDF_WHP_peakFlows.gpkg"
-outgpkg <- "~/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput"
+outgpkg <- "~/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_equalweighting.gpkg"
 weights <- c(1,1,1,1,1) #Watershed, Wildfire Biological, WWFI (self)
 
 

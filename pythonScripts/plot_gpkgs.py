@@ -37,8 +37,7 @@ def plotgpkg(wtshdfile,wtshd_boundsfile,states_file,outprefix,plotting_crs,col_l
         wtshd.plot(ax=ax, column=col_to_plot, cmap=cmap, edgecolor=None, linewidth=0.5, zorder=3)
         
         if plot_ssa_area:
-            core_areas = core_areas.to_crs(wtshd.crs)
-            core_areas.plot(ax=ax, color='none', edgecolor='black', linewidth=0.5, alpha=1, zorder=3)
+            core_areas.plot(ax=ax, color='none', edgecolor='blue', linewidth=0.5, alpha=1, zorder=3)
         # Overlay state boundaries
         states.plot(ax=ax, color='none', edgecolor='black', linewidth=0.5, zorder=4)
 
@@ -62,11 +61,13 @@ def plotgpkg(wtshdfile,wtshd_boundsfile,states_file,outprefix,plotting_crs,col_l
 
 
 plotgpkg(
-    wtshdfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_EqualWeighting_04162026.gpkg',
-    wtshd_boundsfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_EqualWeighting_04162026.gpkg',
+    wtshdfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_EqualWeighting.gpkg',
+    wtshd_boundsfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_EqualWeighting.gpkg',
     states_file = '/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp',
     outprefix = 'HUC12s',
     plotting_crs = 'epsg:4326',
     col_list = ['Watershed','Wildfire','WWVI','Hydrologic','DOC'],
-    outpath = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/figs')
+    outpath = '/Users/evanthaler/Documents/GitHub/WWS_RiskMap/figs',
+    core_areasfile="/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/datasets/surface-water-sources/PNW/pnw-dwsa-with-intakes.gpkg",
+    plot_ssa_area=False)
 
