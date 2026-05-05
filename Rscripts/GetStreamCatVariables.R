@@ -10,7 +10,7 @@ library(remotes)
 comid_df <- read.csv("~/Documents/Projects/OSU/EPARiskMapping/datasets/IndexVariablesDatasets/WWF_COMIDs.csv")
 comid_list <- as.character(comid_df$COMID)
 
-df <- sc_get_data(metric='om',aoi='cat,ws', comid=comid_list) #perm,bfi,iwi,rckdep,runoff,pcthbwet2019,pctwdwet2019,
-write.csv(df,"~/Documents/Projects/OSU/EPARiskMapping/datasets/IndexVariablesDatasets/WWF_COMIDs_soilorganicmatter.csv")
+df <- sc_get_data(metric='iwi', aoi='other',comid=comid_list) #perm,bfi,iwi,rckdep,runoff,pcthbwet2019,pctwdwet2019,
+write.csv(df,"~/Documents/Projects/OSU/EPARiskMapping/datasets/IndexVariablesDatasets/WWF_COMIDs_IWI.csv")
 
 #params <-sc_get_params(param='metric_names')
