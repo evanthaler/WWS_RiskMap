@@ -5,12 +5,12 @@ library(COINr);library(sf);library(terra);library(dplyr);library(tidyr)
 ##### USER INPUTS#####
 ######################
 rdsout<-FALSE
-ucode_column <- 'COMID'
-flowlines <- TRUE
+ucode_column <- 'PWSID'
+flowlines <- FALSE
 test_sensitivity <-FALSE
 test_loo <- TRUE
-infile = "~/Documents/Projects/OSU/WWSRiskMapping/datasets/CompositeIndexInput/FlowlinesStreamCatVars_landslides_IDF_WHP_peakFlows.gpkg"
-outgpkg <- "~/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_equalweighting.gpkg"
+infile = "/Users/evanthaler/Documents/GitHub/WWS_RiskMap/data/source_waters/FlowAttributesSourceWaters/SourceAreasAggregate.gpkg"
+outgpkg <- "/Users/evanthaler/Documents/GitHub/WWS_RiskMap/data/CompositeIndexOutput/WWVI_equalweighting_SourceAreas.gpkg"
 weights <- c(1,1,1,1,1) #Watershed, Wildfire Biological, WWFI (self)
 
 
@@ -23,11 +23,7 @@ rescale_safe <- function(x) {
 #Part 1 Load and subset datatsets
 ########
 gdf <- st_read(infile)
-
-if(rdsout ==TRUE){
-  saveRDS(gdf, sub("\\gpkg$", ".rds", posfile))
-
-}
+gdf <- gdf %>% drop_na()
 # Drop geometry for COINr input
 df<- st_drop_geometry(gdf)
 
@@ -55,10 +51,18 @@ if (flowlines ==TRUE){
                   'omws') 
 
 } else if (flowlines == FALSE){
-  indicators <- c( 'median_IDF_mean',"median_bfiws","median_MaxPeakFlow",
-                   "median_pctwetland","median_al_ss","median_runoffws","median_rckdepcat","median_permcat",'median_landslidepotential',
-                   'median_conditionalflamelength','median_pctburnmedian','median_pcthighsevmedian',
-                   'median_omws')}
+  indicators <- c( 'median_Precip_1hr_100yr',
+                  "median_bfiws",
+                  "median_MaximumPeakFlow", 
+                  
+                  "median_pct_wetland",
+                  "median_rckdepws",
+                  "median_permws",
+                  'median_LandslideSus',
+                  
+                  'median_ConditionalFlameLength',
+                  'median_BurnPotential',
+                  'median_omws')}
 
 longNames <-c("IDF",
               "Baseflow index",
@@ -108,8 +112,7 @@ directions <- c(1,
 lev1_wts = rep(1,length(indicators))
 # Clean dataset
 df <- df[, c(indicators, "uCode")]
-
-#"Burn area trend","High severity burn trend", "Conditional Flame Length"
+df[indicators] <- lapply(df[indicators], as.numeric)
 # Build iMeta...
 iMeta_base <- data.frame(
   iCode = indicators,
@@ -140,9 +143,8 @@ iMeta <- rbind(iMeta, iMeta_L23)
 
 
 
-df <- df %>%
-  group_by(uCode) %>%
-  summarise(across(all_of(indicators), ~mean(.x, na.rm = TRUE)), .groups = "drop")
+df <- df %>% 
+  distinct(uCode, .keep_all = TRUE)
 
 
 
