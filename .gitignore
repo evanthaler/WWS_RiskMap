@@ -3,3 +3,8 @@ data/source_waters/.DS_Store
 data/source_waters/FlowAttributesSourceWaters/.DS_Store
 /data/source_waters/indivSourceWaters
 /data/source_waters/FlowAttributesSourceWaters
+figs/.DS_Store
+data/source_waters/distance_to_Intakepoints.tif
+data/source_waters/distance_to_points.tif.aux.xml
+data/source_waters/pnw-dwsa-with-intakes.gpkg-wal
+data/source_waters/pnw-dwsa-with-intakes.gpkg-shm

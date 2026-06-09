@@ -24,7 +24,7 @@ def plotgpkg(wtshdfile,wtshd_boundsfile,states_file,outprefix,plotting_crs,col_l
 
     for c in col_list:
         col_to_plot = c 
-        minx, miny, maxx, maxy = wtshd.total_bounds
+        minx, miny, maxx, maxy = wtshd_bounds.total_bounds
 
         fig, ax = plt.subplots(figsize=(5,5))
         #wtshd[col_to_plot] = wtshd[col_to_plot] / wtshd[col_to_plot].max()
@@ -33,11 +33,11 @@ def plotgpkg(wtshdfile,wtshd_boundsfile,states_file,outprefix,plotting_crs,col_l
         #norm = mpl.colors.Normalize(vmin=0, vmax=100)
         norm = mpl.colors.PowerNorm(gamma=1, vmin=0, vmax=100)
         # Plot the polygons manually with colormap
-        wtshd_bounds.plot(ax=ax, color='lightblue', edgecolor='none', linewidth=0.5, alpha=0.3, zorder=0,vmin=0,vmax=100)
+        wtshd_bounds.plot(ax=ax, color='none', edgecolor='none', linewidth=0.5, alpha=0.3, zorder=3,vmin=0,vmax=100)
         wtshd.plot(ax=ax, column=col_to_plot, cmap=cmap, edgecolor=None, linewidth=0.5, zorder=3)
         
         if plot_ssa_area:
-            core_areas.plot(ax=ax, color='none', edgecolor='blue', linewidth=0.5, alpha=1, zorder=3)
+            core_areas.plot(ax=ax, color='blue', edgecolor='none', markersize=50, alpha=1, zorder=3)
         # Overlay state boundaries
         states.plot(ax=ax, color='none', edgecolor='black', linewidth=0.5, zorder=4)
 
@@ -61,13 +61,13 @@ def plotgpkg(wtshdfile,wtshd_boundsfile,states_file,outprefix,plotting_crs,col_l
 
 
 plotgpkg(
-    wtshdfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_EqualWeighting.gpkg',
-    wtshd_boundsfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_EqualWeighting.gpkg',
+    wtshdfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/CompositeIndexOutput/WWVI_equalweighting_SourceAreas.gpkg',
+    wtshd_boundsfile = '/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/datasets/DashboardExample/SourceAreaExample.gpkg',
     states_file = '/Users/evanthaler/Documents/Projects/OSU/StateShapefiles/tl_2023_us_state/tl_2023_us_state.shp',
-    outprefix = 'HUC12s',
+    outprefix = 'SourceAreas_wIntakePoints_',
     plotting_crs = 'epsg:4326',
     col_list = ['Watershed','Wildfire','WWVI','Hydrologic','DOC'],
     outpath = '/Users/evanthaler/Documents/GitHub/WWS_RiskMap/figs',
-    core_areasfile="/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/datasets/surface-water-sources/PNW/pnw-dwsa-with-intakes.gpkg",
-    plot_ssa_area=False)
+    core_areasfile="/Users/evanthaler/Documents/Projects/OSU/WWSRiskMapping/datasets/DashboardExample/IntakePointExample.gpkg",
+    plot_ssa_area=True)
 

@@ -9,7 +9,7 @@ ucode_column <- 'PWSID'
 flowlines <- FALSE
 test_sensitivity <-FALSE
 test_loo <- TRUE
-infile = "/Users/evanthaler/Documents/GitHub/WWS_RiskMap/data/source_waters/FlowAttributesSourceWaters/SourceAreasAggregate.gpkg"
+infile = "/Users/evanthaler/Documents/GitHub/WWS_RiskMap/data/source_waters/SourceAreasAggregate.gpkg"
 outgpkg <- "/Users/evanthaler/Documents/GitHub/WWS_RiskMap/data/CompositeIndexOutput/WWVI_equalweighting_SourceAreas.gpkg"
 weights <- c(1,1,1,1,1) #Watershed, Wildfire Biological, WWFI (self)
 
